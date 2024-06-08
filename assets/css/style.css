@@ -69,6 +69,17 @@ input{
     padding-top: 160px;
 }
 
+.quiz-app span{
+    color: white;
+    margin-left: 110px;
+}
+
+.quiz-app button{
+    margin: 0 auto;
+    display: flex;
+    margin-top: 20px;
+}
+
 .quiz-time{
     display: flex;
     align-items: center;

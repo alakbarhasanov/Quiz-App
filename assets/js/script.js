@@ -15,32 +15,34 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let currentQuestionIndex = 0;
     let timer;
     let timeLeft = 10;
+    let correctAnswers = 0;
+    let username = "";
 
 
     const questions = [
         {
             question: "Which is the javascript package management application?",
-            choices: [ "Node.js", "Typescript", "Npm" ],
+            choices: ["Node.js", "Typescript", "Npm"],
             correctAnswer: "Npm"
         },
         {
             question: "Which is the most popular language in the world right now?",
-            choices: ["Java Script", "Python", "Java" ],
+            choices: ["Java Script", "Python", "Java"],
             correctAnswer: "Python"
         },
         {
             question: "Which one is used for clean code?",
-            choices: ["Angular","Typescript","React" ],
+            choices: ["Angular", "Typescript", "React"],
             correctAnswer: "Typescript"
         },
         {
             question: "What language does the Macos operating system use?",
-            choices: ["Java","C++","Swift"],
+            choices: ["Java", "C++", "Swift"],
             correctAnswer: "C++"
         },
         {
             question: "When was the java language created?",
-            choices: ["1997","1995","1993"],
+            choices: ["1997", "1995", "1993"],
             correctAnswer: "1995"
         }
     ];
@@ -51,7 +53,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     nextQuestionButton.addEventListener("click", nextQuestion);
 
     function startQuiz(e) {
-        const username = input.value;
+        username = input.value.trim();
         if (username === "") {
             alert("Please enter your name.");
             return;
@@ -78,7 +80,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function selectAnswer(event) {
         clearInterval(timer);
-        const currentQuestion = questions[currentQuestionIndex];
+        const selectedAnswer = event.target.textContent.split(": ")[1];
+        const correctAnswer = questions[currentQuestionIndex].correctAnswer;
+        if (selectedAnswer === correctAnswer) {
+            correctAnswers++;
+        }
         nextQuestion();
     }
 
@@ -111,8 +117,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function endQuiz() {
-        quizApp.innerHTML = "<h1>Quiz Completed!</h1>";
+        quizApp.innerHTML = `<h1>Quiz Completed!</h1><span>${username}, ${questions.length} from the question ${correctAnswers} you got that one right.</span><br>
+        <button id="finish-quiz-button" type="button">Finish Quiz</button>`;
+       
+        document.getElementById("finish-quiz-button").addEventListener("click", function(){
+            location.reload();
+        });
     }
+
 
 })
 
